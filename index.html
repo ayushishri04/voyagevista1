@@ -3,23 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VoyageVista - Travel Adventures</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Voyage Vista - Travel Adventures</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- Navigation -->
     <nav>
         <div class="nav-container">
-            <div class="logo">VoyageVista</div>
-            <div class="menu-toggle">
+            <div class="logo">Voyage Vista</div>
+            <button class="menu-toggle d-md-none">
                 <i class="fas fa-bars"></i>
-            </div>
+            </button>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#destinations">Destinations</a></li>
-                <li><a href="#packages">Packages</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </div>
@@ -31,9 +34,10 @@
             <h1>Discover Your Next Adventure</h1>
             <p>Explore the world's most beautiful destinations</p>
             <div class="search-bar">
-                <input type="text" placeholder="Where do you want to go?">
-                <button><i class="fas fa-search"></i></button>
+                <input type="text" id="searchInput" placeholder="Where do you want to go?">
+                <button class="btn" id="searchBtn"><i class="fas fa-search"></i> Search</button>
             </div>
+            <div id="searchResults" class="mt-4"></div>
         </div>
     </section>
 
@@ -41,139 +45,346 @@
     <section id="about" class="about">
         <div class="about-container">
             <div class="about-content">
-                <h2>Your Journey Begins Here</h2>
-                <p>At VoyageVista, we believe that travel is more than just visiting new places – it's about creating unforgettable experiences and memories that last a lifetime.</p>
+                <h2>About Us</h2>
+                <p>We're passionate about creating unforgettable travel experiences.</p>
                 <div class="feature-grid">
                     <div class="feature-item">
-                        <i class="fas fa-map-marked-alt"></i>
-                        <h3>Handpicked Destinations</h3>
-                        <p>Carefully selected locations for the best experience</p>
+                        <i class="fas fa-globe"></i>
+                        <h3>Global Reach</h3>
+                        <p>Explore destinations worldwide</p>
+                        <a href="global-reach.html" class="btn">Explore More</a>
                     </div>
                     <div class="feature-item">
-                        <i class="fas fa-hotel"></i>
-                        <h3>Quality Accommodations</h3>
-                        <p>Comfortable and luxurious stays</p>
+                        <i class="fas fa-star"></i>
+                        <h3>Best Deals</h3>
+                        <p>Competitive prices guaranteed</p>
+                        <button class="btn" onclick="showDeals()">View Deals</button>
                     </div>
                     <div class="feature-item">
-                        <i class="fas fa-headset"></i>
-                        <h3>24/7 Support</h3>
-                        <p>Always here to help you</p>
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Safe Travel</h3>
+                        <p>Your safety is our priority</p>
+                        <button class="btn" onclick="showSafetyInfo()">Learn More</button>
                     </div>
                 </div>
             </div>
             <div class="about-image">
-                <img src="https://picsum.photos/id/1015/800/1000" alt="Travel Experience">
+                <img src="https://picsum.photos/id/1036/800/600" alt="Travel Experience">
             </div>
         </div>
     </section>
 
-    <!-- Popular Destinations -->
+    <!-- Destinations Section -->
     <section id="destinations" class="destinations">
-        <h2>Popular Destinations</h2>
-        <p class="section-desc">Explore our hand-picked selection of the world's most amazing destinations</p>
-        <div class="destination-grid">
-            <div class="destination-card">
-                <img src="https://picsum.photos/id/1036/800/600" alt="Bali">
-                <div class="card-content">
+        <h2 class="text-center mb-5">Popular Destinations</h2>
+        <div class="destination-grid" id="destinationGrid">
+            <div class="destination-card" data-name="Paris">
+                <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=600&q=80" alt="Paris, France">
+                <div class="p-4">
+                    <h3>Paris, France</h3>
+                    <p>Experience the city of love</p>
+                    <div class="mb-2 text-warning">&#9733;&#9733;&#9733;&#9733;&#189;</div>
+                    <button class="btn" onclick="showDestinationDetails('Paris')">Learn More</button>
+                    <a class="btn btn-outline-primary ms-2" href="https://www.google.com/maps/place/Paris" target="_blank">View on Map</a>
+                </div>
+            </div>
+            <div class="destination-card" data-name="Tokyo">
+                <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80" alt="Tokyo, Japan">
+                <div class="p-4">
+                    <h3>Tokyo, Japan</h3>
+                    <p>Discover ancient traditions</p>
+                    <div class="mb-2 text-warning">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <button class="btn" onclick="showDestinationDetails('Tokyo')">Learn More</button>
+                    <a class="btn btn-outline-primary ms-2" href="https://www.google.com/maps/place/Tokyo" target="_blank">View on Map</a>
+                </div>
+            </div>
+            <div class="destination-card" data-name="New York">
+                <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80" alt="New York, USA">
+                <div class="p-4">
+                    <h3>New York, USA</h3>
+                    <p>The city that never sleeps</p>
+                    <div class="mb-2 text-warning">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+                    <button class="btn" onclick="showDestinationDetails('New York')">Learn More</button>
+                    <a class="btn btn-outline-primary ms-2" href="https://www.google.com/maps/place/New+York" target="_blank">View on Map</a>
+                </div>
+            </div>
+            <div class="destination-card" data-name="Bali">
+                <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" alt="Bali, Indonesia">
+                <div class="p-4">
                     <h3>Bali, Indonesia</h3>
                     <p>Tropical paradise with beautiful beaches</p>
-                    <div class="card-footer">
-                        <span class="price">From $899</span>
-                        <button class="btn">Learn More</button>
-                    </div>
+                    <div class="mb-2 text-warning">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <button class="btn" onclick="showDestinationDetails('Bali')">Learn More</button>
+                    <a class="btn btn-outline-primary ms-2" href="https://www.google.com/maps/place/Bali" target="_blank">View on Map</a>
                 </div>
             </div>
-            <div class="destination-card">
-                <img src="https://picsum.photos/id/164/800/600" alt="Santorini">
-                <div class="card-content">
+            <div class="destination-card" data-name="Santorini">
+                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80" alt="Santorini, Greece">
+                <div class="p-4">
                     <h3>Santorini, Greece</h3>
                     <p>Stunning white architecture and Mediterranean beauty</p>
-                    <div class="card-footer">
-                        <span class="price">From $1,299</span>
-                        <button class="btn">Learn More</button>
-                    </div>
+                    <div class="mb-2 text-warning">&#9733;&#9733;&#9733;&#9733;&#189;</div>
+                    <button class="btn" onclick="showDestinationDetails('Santorini')">Learn More</button>
+                    <a class="btn btn-outline-primary ms-2" href="https://www.google.com/maps/place/Santorini" target="_blank">View on Map</a>
                 </div>
             </div>
-            <div class="destination-card">
-                <img src="https://picsum.photos/id/1016/800/600" alt="Tokyo">
-                <div class="card-content">
-                    <h3>Tokyo, Japan</h3>
-                    <p>Modern metropolis with traditional charm</p>
-                    <div class="card-footer">
-                        <span class="price">From $1,199</span>
-                        <button class="btn">Learn More</button>
-                    </div>
-                </div>
-            </div>
-            <div class="destination-card">
-                <img src="https://picsum.photos/id/1019/800/600" alt="Swiss Alps">
-                <div class="card-content">
-                    <h3>Swiss Alps</h3>
-                    <p>Majestic mountains and scenic beauty</p>
-                    <div class="card-footer">
-                        <span class="price">From $1,499</span>
-                        <button class="btn">Learn More</button>
-                    </div>
-                </div>
-            </div>
-            <div class="destination-card">
-                <img src="https://picsum.photos/id/1033/800/600" alt="Maldives">
-                <div class="card-content">
-                    <h3>Maldives</h3>
-                    <p>Crystal clear waters and luxury resorts</p>
-                    <div class="card-footer">
-                        <span class="price">From $1,899</span>
-                        <button class="btn">Learn More</button>
-                    </div>
-                </div>
-            </div>
-            <div class="destination-card">
-                <img src="https://picsum.photos/id/1037/800/600" alt="Machu Picchu">
-                <div class="card-content">
-                    <h3>Machu Picchu, Peru</h3>
-                    <p>Ancient wonders and mystical experiences</p>
-                    <div class="card-footer">
-                        <span class="price">From $1,599</span>
-                        <button class="btn">Learn More</button>
-                    </div>
+            <div class="destination-card" data-name="Dubai">
+                <img src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=600&q=80" alt="Dubai, UAE">
+                <div class="p-4">
+                    <h3>Dubai, UAE</h3>
+                    <p>Modern luxury meets traditional charm</p>
+                    <div class="mb-2 text-warning">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+                    <button class="btn" onclick="showDestinationDetails('Dubai')">Learn More</button>
+                    <a class="btn btn-outline-primary ms-2" href="https://www.google.com/maps/place/Dubai" target="_blank">View on Map</a>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer>
+    <footer id="contact">
         <div class="footer-content">
-            <div class="footer-section">
-                <h3>VoyageVista</h3>
-                <p>Your ultimate travel companion for discovering the world's most amazing destinations.</p>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                </div>
-            </div>
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#destinations">Destinations</a></li>
-                    <li><a href="#packages">Packages</a></li>
-                </ul>
-            </div>
             <div class="footer-section">
                 <h3>Contact Us</h3>
                 <p><i class="fas fa-envelope"></i> info@voyagevista.com</p>
-                <p><i class="fas fa-phone"></i> +91 123456789</p>
-                <p><i class="fas fa-map-marker-alt"></i> Delhi,MP</p>
+                <p><i class="fas fa-phone"></i> +91 123456789 </p>
+                <p><i class="fas fa-map-marker-alt"></i> Aplha 2, Greater Noida, U.P</p>
             </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2024 VoyageVista. All rights reserved.</p>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <!-- Modals -->
+    <!-- Deals Modal -->
+    <div class="modal fade" id="dealsModal" tabindex="-1" aria-labelledby="dealsModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="dealsModalLabel">Current Special Deals</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" id="dealsModalBody">
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Safety Modal -->
+    <div class="modal fade" id="safetyModal" tabindex="-1" aria-labelledby="safetyModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="safetyModalLabel">Our Safety Measures</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" id="safetyModalBody">
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Destination Details Modal -->
+    <div class="modal fade" id="destinationModal" tabindex="-1" aria-labelledby="destinationModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="destinationModalLabel">Destination Details</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" id="destinationModalBody">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Animate destination cards on scroll
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.destination-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Search functionality
+        const allDestinations = [
+            {
+                name: 'Paris',
+                html: document.querySelector('.destination-card[data-name="Paris"]').outerHTML
+            },
+            {
+                name: 'Tokyo',
+                html: document.querySelector('.destination-card[data-name="Tokyo"]').outerHTML
+            },
+            {
+                name: 'New York',
+                html: document.querySelector('.destination-card[data-name="New York"]').outerHTML
+            },
+            {
+                name: 'Bali',
+                html: document.querySelector('.destination-card[data-name="Bali"]').outerHTML
+            },
+            {
+                name: 'Santorini',
+                html: document.querySelector('.destination-card[data-name="Santorini"]').outerHTML
+            },
+            {
+                name: 'Dubai',
+                html: document.querySelector('.destination-card[data-name="Dubai"]').outerHTML
+            }
+        ];
+        document.getElementById('searchBtn').addEventListener('click', function() {
+            const term = document.getElementById('searchInput').value.trim().toLowerCase();
+            const resultsDiv = document.getElementById('searchResults');
+            if (!term) {
+                resultsDiv.innerHTML = '';
+                document.getElementById('destinationGrid').style.display = '';
+                return;
+            }
+            const matches = allDestinations.filter(d => d.name.toLowerCase().includes(term));
+            if (matches.length > 0) {
+                resultsDiv.innerHTML = '<div class="destination-grid">' + matches.map(m => m.html).join('') + '</div>';
+                document.getElementById('destinationGrid').style.display = 'none';
+            } else {
+                resultsDiv.innerHTML = '<div class="alert alert-warning">No destinations found for "' + term + '".</div>';
+                document.getElementById('destinationGrid').style.display = 'none';
+            }
+        });
+        document.getElementById('searchInput').addEventListener('input', function() {
+            if (!this.value.trim()) {
+                document.getElementById('searchResults').innerHTML = '';
+                document.getElementById('destinationGrid').style.display = '';
+            }
+        });
+        document.getElementById('searchInput').addEventListener('blur', function() {
+            if (!this.value.trim()) {
+                document.getElementById('searchResults').innerHTML = '';
+                document.getElementById('destinationGrid').style.display = '';
+            }
+        });
+
+        // Add hover effect to feature items
+        document.querySelectorAll('.feature-item').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px)';
+            });
+            item.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Function to show destination details
+        function showDestinationDetails(destination) {
+            const details = {
+                'Paris': {
+                    description: 'The City of Light offers iconic landmarks like the Eiffel Tower, Louvre Museum, and Notre-Dame Cathedral.',
+                    price: 'From $899',
+                    duration: '5-7 days recommended',
+                    image: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=600&q=80'
+                },
+                'Tokyo': {
+                    description: 'Experience the perfect blend of traditional culture and cutting-edge technology.',
+                    price: 'From $1,299',
+                    duration: '7-10 days recommended',
+                    image: 'https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80'
+                },
+                'New York': {
+                    description: 'The Big Apple offers endless entertainment, from Broadway shows to world-class museums.',
+                    price: 'From $999',
+                    duration: '4-6 days recommended',
+                    image: 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80'
+                },
+                'Bali': {
+                    description: 'Tropical paradise with lush landscapes, pristine beaches, and rich cultural heritage.',
+                    price: 'From $799',
+                    duration: '7-10 days recommended',
+                    image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80'
+                },
+                'Santorini': {
+                    description: 'Stunning white-washed buildings, blue domes, and breathtaking sunsets over the Aegean Sea.',
+                    price: 'From $1,199',
+                    duration: '5-7 days recommended',
+                    image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80'
+                },
+                'Dubai': {
+                    description: 'Experience luxury shopping, ultramodern architecture, and a vibrant nightlife scene.',
+                    price: 'From $1,499',
+                    duration: '4-6 days recommended',
+                    image: 'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=600&q=80'
+                }
+            };
+            const info = details[destination];
+            document.getElementById('destinationModalLabel').innerText = destination;
+            document.getElementById('destinationModalBody').innerHTML = `
+                <img src="${info.image}" alt="${destination}" class="img-fluid rounded mb-3">
+                <p>${info.description}</p>
+                <p><strong>Price:</strong> ${info.price}</p>
+                <p><strong>Recommended Duration:</strong> ${info.duration}</p>
+            `;
+            var modal = new bootstrap.Modal(document.getElementById('destinationModal'));
+            modal.show();
+        }
+        // Function to show deals
+        function showDeals() {
+            const deals = [
+                'Early Bird Special: 20% off on all bookings made 3 months in advance',
+                'Family Package: Kids stay and eat free',
+                'Last Minute Deals: Up to 30% off on selected destinations',
+                'Honeymoon Special: Free room upgrade and spa treatment',
+                'Group Discount: 15% off for groups of 6 or more'
+            ];
+            document.getElementById('dealsModalBody').innerHTML = '<ul>' + deals.map(d => `<li>${d}</li>`).join('') + '</ul>';
+            var modal = new bootstrap.Modal(document.getElementById('dealsModal'));
+            modal.show();
+        }
+        // Function to show safety information
+        function showSafetyInfo() {
+            const safetyInfo = [
+                '24/7 Emergency Support',
+                'Travel Insurance Included',
+                'Local Guide Assistance',
+                'Safe Transportation',
+                'Health & Safety Protocols'
+            ];
+            document.getElementById('safetyModalBody').innerHTML = '<ul>' + safetyInfo.map(s => `<li>${s}</li>`).join('') + '</ul>';
+            var modal = new bootstrap.Modal(document.getElementById('safetyModal'));
+            modal.show();
+        }
+    </script>
 </body>
 </html>
